@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fall – Pleuraerguss</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <img src="PMU_Logo_CMYK_positiv_blau.jpg" class="logo" alt="PMU Logo" />
+  <h1>Fall – Pleuraerguss</h1>
+  <div class="bild">
+    <img src="https://radiopaedia.org/images/37809798.jpg" alt="Fallbild" width="400" />
+  </div>
+  <div class="fragen">
+    <label>1. Welche Untersuchungsregion ist das?</label>
+    <input id="region" type="text" />
+    <label>2. Welche Untersuchungstechnik wurde verwendet?</label>
+    <input id="technik" type="text" />
+    <label>3. Welche möglichen Diagnosen fallen dir ein?</label>
+    <textarea id="diagnose"></textarea>
+    <label>4. Wie unterscheiden sich Atelektase und Pleuraerguss im Röntgenbild?</label>
+    <textarea id="theorie"></textarea>
+    <button onclick="auswerten()">Antworten prüfen</button>
+  </div>
+  <div class="auswertung hidden" id="feedback">
+    <h2>Auswertung</h2>
+    <p id="score"></p>
+  </div>
+  <footer><p>© 2025 PMU Radiologie Lehre</p></footer>
+  <script>
+    function auswerten() {
+      const lösungen = {
+        region: ["Thorax".toLowerCase()],
+        technik: ["Thorax-Röntgen".toLowerCase()],
+        diagnose: ["Pleuraerguss".toLowerCase()],
+        theorie: ["Wie unterscheiden sich Atelektase und Pleuraerguss im Röntgenbild?".toLowerCase()]
+      };
+      let punkte = 0;
+      const region = document.getElementById("region").value.toLowerCase();
+      const technik = document.getElementById("technik").value.toLowerCase();
+      const diagnose = document.getElementById("diagnose").value.toLowerCase();
+      const theorie = document.getElementById("theorie").value.toLowerCase();
+      if (lösungen.region.some(k => region.includes(k))) punkte++;
+      if (lösungen.technik.some(k => technik.includes(k))) punkte++;
+      if (lösungen.diagnose.some(k => diagnose.includes(k))) punkte++;
+      if (lösungen.theorie.some(k => theorie.includes(k.split(" ")[0]))) punkte++;
+      document.getElementById("score").innerText = 'Du hast ' + punkte + ' von 4 Punkten erreicht.';
+      document.getElementById("feedback").classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>
