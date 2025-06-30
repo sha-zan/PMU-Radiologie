@@ -1,5 +1,1 @@
-
-body { font-family: sans-serif; padding: 2rem; }
-img.logo { height: 80px; margin-bottom: 20px; }
-h1 { color: #1e2e60; }
-img { margin-top: 10px; }
+body{font-family:sans-serif;padding:2rem}img.logo{height:80px;margin-bottom:20px}h1{color:#1e2e60}img{margin-top:10px;max-width:90%}
