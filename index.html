@@ -1,101 +1,101 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PMU Radiologie – Interaktive Fallanalyse</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pneumothorax Fallanalyse – PMU</title>
   <style>
-    .fall-box {
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #002855;
+      color: white;
+      padding: 1em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header img {
+      height: 50px;
+    }
+    .container {
+      padding: 2em;
+      max-width: 900px;
+      margin: auto;
+      background-color: white;
+    }
+    .question {
+      margin-top: 2em;
+    }
+    .question input[type="radio"] {
+      margin-right: 0.5em;
+    }
+    .result {
+      margin-top: 1em;
+      font-weight: bold;
+    }
+    .image {
+      max-width: 100%;
+      height: auto;
       border: 1px solid #ccc;
-      border-radius: 1rem;
-      padding: 1rem;
-      margin: 1rem 0;
-      background-color: #f9f9f9;
-    }
-    .frage {
-      margin-bottom: 0.5rem;
-    }
-    .antwort {
-      display: inline-block;
-      width: 100%;
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
-    }
-    button {
-      margin: 0.5rem;
-    }
-    .logo {
-      max-width: 250px;
-      margin-bottom: 1rem;
+      margin-top: 1em;
     }
   </style>
 </head>
 <body>
-  <img src="images/PMU_Logo_CMYK_positiv_blau.jpg" class="logo" alt="PMU Logo">
-  <h1>PMU Radiologische Lernplattform</h1>
+  <header>
+    <h1>Radiologische Fallanalyse – Pneumothorax</h1>
+    <img src="PMU_Logo_CMYK_positiv_blau.jpg" alt="PMU Logo">
+  </header>
+  <div class="container">
+    <h2>Bildgebung</h2>
+    <p><strong>Untersuchungstechnik:</strong> Thorax-Röntgen (p.a. Aufnahme in Exspiration)</p>
+    <p><strong>Untersuchungsregion:</strong> Thorax</p>
+    <img class="image" src="Pneumothorax.JPG" alt="Thorax-Röntgen">
 
-  <div id="fallContainer" class="fall-box"></div>
+    <h2>Diagnose</h2>
+    <p>Linksseitiger Pneumothorax. Sichtbar ist eine scharfe Pleurakante ohne periphere Lungenzeichnung links. Der Patient hat zusätzlich einen Herzschrittmacher implantiert.</p>
 
-  <div style="margin-top: 2rem;">
-    <span id="scoreAnzeige">Gesamtscore: 0%</span>
+    <div class="question">
+      <h3>Frage zur Theorie:</h3>
+      <p>Welche Bildgebung ist am sensitivsten zur Diagnose eines Pneumothorax?</p>
+      <form id="quizForm">
+        <label><input type="radio" name="answer" value="A"> Röntgen</label><br>
+        <label><input type="radio" name="answer" value="B"> CT</label><br>
+        <label><input type="radio" name="answer" value="C"> Sonographie</label><br>
+        <button type="button" onclick="checkAnswer()">Antwort prüfen</button>
+      </form>
+      <div class="result" id="result"></div>
+    </div>
   </div>
 
   <script>
-    const faelle = [
-      {
-        bild: "images/Pneumothorax.JPG",
-        fragen: [
-          { frage: "Welche Untersuchungsregion ist es?", antwort: "rechter Thorax / Pleuraraum" },
-          { frage: "Welche Untersuchungstechnik wird hier angewendet?", antwort: "Thorax-Röntgen p.a. in Exspiration" },
-          { frage: "Diagnose?", antwort: "Spannungspneumothorax" },
-          { frage: "Ist das ein Notfall? (ja/nein)", antwort: "ja" }
-        ]
+    function checkAnswer() {
+      const radios = document.getElementsByName('answer');
+      let selected;
+      for (const radio of radios) {
+        if (radio.checked) {
+          selected = radio.value;
+          break;
+        }
       }
-    ];
-
-    let beantworteteFragen = {};
-
-    function zeigeFall() {
-      const container = document.getElementById('fallContainer');
-      container.innerHTML = '';
-      const fall = faelle[0];
-      let html = `<img src="${fall.bild}" alt="Fallbild" style="max-width:100%"><br/>`;
-      fall.fragen.forEach((f, i) => {
-        const id = `0-${i}`;
-        html += `
-          <div class="frage">${f.frage}</div>
-          <input class="antwort" type="text" data-index="${i}" id="${id}" oninput="checkAntwort(event, 0, ${i})">
-        `;
-      });
-      container.innerHTML = html;
-    }
-
-    function checkAntwort(e, fallIndex, frageIndex) {
-      const eingabe = e.target.value.trim().toLowerCase();
-      const korrekt = faelle[fallIndex].fragen[frageIndex].antwort.toLowerCase();
-      const id = `${fallIndex}-${frageIndex}`;
-
-      if (eingabe === korrekt) {
-        e.target.style.backgroundColor = '#d4edda';
-        beantworteteFragen[id] = true;
+      const result = document.getElementById('result');
+      if (selected === 'B') {
+        result.textContent = '✅ Richtig! Die CT ist am sensitivsten für Pneumothorax.';
+        result.style.color = 'green';
+      } else if (selected) {
+        result.textContent = '❌ Leider falsch. Richtig wäre: CT.';
+        result.style.color = 'red';
       } else {
-        e.target.style.backgroundColor = '#f8d7da';
-        beantworteteFragen[id] = false;
+        result.textContent = 'Bitte wähle eine Antwort aus.';
+        result.style.color = 'black';
       }
-      updateScore();
     }
-
-    function updateScore() {
-      const total = faelle[0].fragen.length;
-      const richtig = Object.values(beantworteteFragen).filter(v => v).length;
-      const score = Math.round((richtig / total) * 100);
-      document.getElementById('scoreAnzeige').innerText = `Gesamtscore: ${score}%`;
-    }
-
-    zeigeFall();
   </script>
 </body>
 </html>
