@@ -5,6 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PMU Radiologie – Interaktive Fallanalyse</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .fall-box {
+      border: 1px solid #ccc;
+      border-radius: 1rem;
+      padding: 1rem;
+      margin: 1rem 0;
+      background-color: #f9f9f9;
+    }
+    .frage {
+      margin-bottom: 0.5rem;
+    }
+    .antwort {
+      display: inline-block;
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    button {
+      margin: 0.5rem;
+    }
+    .logo {
+      max-width: 250px;
+      margin-bottom: 1rem;
+    }
+  </style>
 </head>
 <body>
   <img src="images/PMU_Logo_CMYK_positiv_blau.jpg" class="logo" alt="PMU Logo">
@@ -13,12 +40,62 @@
   <div id="fallContainer" class="fall-box"></div>
 
   <div style="margin-top: 2rem;">
-    <button onclick="vorherigerFall()">⬅️ Zurück</button>
-    <button onclick="naechsterFall()">➡️ Weiter</button>
     <span id="scoreAnzeige">Gesamtscore: 0%</span>
   </div>
 
-  <script src="faelle.js"></script>
-  <script src="main.js"></script>
+  <script>
+    const faelle = [
+      {
+        bild: "images/Pneumothorax.JPG",
+        fragen: [
+          { frage: "Welche Untersuchungsregion ist es?", antwort: "rechter Thorax / Pleuraraum" },
+          { frage: "Welche Untersuchungstechnik wird hier angewendet?", antwort: "Thorax-Röntgen p.a. in Exspiration" },
+          { frage: "Diagnose?", antwort: "Spannungspneumothorax" },
+          { frage: "Ist das ein Notfall? (ja/nein)", antwort: "ja" }
+        ]
+      }
+    ];
+
+    let beantworteteFragen = {};
+
+    function zeigeFall() {
+      const container = document.getElementById('fallContainer');
+      container.innerHTML = '';
+      const fall = faelle[0];
+      let html = `<img src="${fall.bild}" alt="Fallbild" style="max-width:100%"><br/>`;
+      fall.fragen.forEach((f, i) => {
+        const id = `0-${i}`;
+        html += `
+          <div class="frage">${f.frage}</div>
+          <input class="antwort" type="text" data-index="${i}" id="${id}" oninput="checkAntwort(event, 0, ${i})">
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function checkAntwort(e, fallIndex, frageIndex) {
+      const eingabe = e.target.value.trim().toLowerCase();
+      const korrekt = faelle[fallIndex].fragen[frageIndex].antwort.toLowerCase();
+      const id = `${fallIndex}-${frageIndex}`;
+
+      if (eingabe === korrekt) {
+        e.target.style.backgroundColor = '#d4edda';
+        beantworteteFragen[id] = true;
+      } else {
+        e.target.style.backgroundColor = '#f8d7da';
+        beantworteteFragen[id] = false;
+      }
+      updateScore();
+    }
+
+    function updateScore() {
+      const total = faelle[0].fragen.length;
+      const richtig = Object.values(beantworteteFragen).filter(v => v).length;
+      const score = Math.round((richtig / total) * 100);
+      document.getElementById('scoreAnzeige').innerText = `Gesamtscore: ${score}%`;
+    }
+
+    zeigeFall();
+  </script>
 </body>
 </html>
