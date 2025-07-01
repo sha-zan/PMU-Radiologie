@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PMU Radiologie – Interaktive Fallanalyse</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <img src="images/logo.png" class="logo" alt="PMU Logo">
+  <h1>PMU Radiologische Lernplattform</h1>
+
+  <div id="fallContainer" class="fall-box"></div>
+
+  <div style="margin-top: 2rem;">
+    <button onclick="vorherigerFall()">⬅️ Zurück</button>
+    <button onclick="naechsterFall()">➡️ Weiter</button>
+    <span id="scoreAnzeige">Gesamtscore: 0%</span>
+  </div>
+
+  <script src="faelle.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
