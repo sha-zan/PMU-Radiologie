@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PMU Radiologie Fälle</title>
+  <link rel="icon" type="image/png" href="PMU_Logo_CMYK_positiv_blau.jpg" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      background-color: #005aa7;
+      color: white;
+      padding: 10px 20px;
+    }
+    header img {
+      height: 40px;
+      margin-right: 15px;
+    }
+    main {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    .case {
+      display: none;
+      margin-bottom: 30px;
+    }
+    .case.active {
+      display: block;
+    }
+    .nav-buttons {
+      text-align: center;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #005aa7;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #007bd3;
+    }
+    textarea {
+      width: 100%;
+      height: 80px;
+      margin-top: 10px;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+    .score {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .case img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: contain;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="PMU_Logo_CMYK_positiv_blau.jpg" alt="PMU Logo" />
+    <h2>Radiologie-Fälle</h2>
+  </header>
+  <main>
+    <h1>Interaktive Fallstudien</h1>
+
+    <div id="cases">
+      <div class="case active" id="case1">
+        <h3>Fall 1: Pneumothorax</h3>
+        <img src="Pneumothorax.JPG" alt="Thoraxbild Pneumothorax">
+        <p>Frage: Was zeigt dieses Röntgenbild?</p>
+        <textarea id="answer1" placeholder="Deine Antwort..."></textarea>
+        <button onclick="checkAnswer(1)">Antwort überprüfen</button>
+        <p class="score" id="score1">Punkte: 0</p>
+      </div>
+
+      <div class="case" id="case2">
+        <h3>Fall 2: Pleuraerguss (seitlich)</h3>
+        <img src="Pleuraerguss2.JPG" alt="Seitenaufnahme Pleuraerguss">
+        <p>Frage: Welche Raumforderung ist sichtbar?</p>
+        <textarea id="answer2" placeholder="Deine Antwort..."></textarea>
+        <button onclick="checkAnswer(2)">Antwort überprüfen</button>
+        <p class="score" id="score2">Punkte: 0</p>
+      </div>
+
+      <div class="case" id="case3">
+        <h3>Fall 3: Pleuraerguss (pa)</h3>
+        <img src="Pleuraerguss1JPG.JPG" alt="PA Aufnahme Pleuraerguss">
+        <p>Frage: Was könnte die Verschattung auf der linken Seite bedeuten?</p>
+        <textarea id="answer3" placeholder="Deine Antwort..."></textarea>
+        <button onclick="checkAnswer(3)">Antwort überprüfen</button>
+        <p class="score" id="score3">Punkte: 0</p>
+      </div>
+
+      <div class="case" id="case4">
+        <h3>Fall 4: Raumforderung in Thorax-CT</h3>
+        <img src="RaumforderungThorax-CT.JPG" alt="CT Bild Thoraxraumforderung">
+        <p>Frage: Was fällt im rechten Unterlappen auf?</p>
+        <textarea id="answer4" placeholder="Deine Antwort..."></textarea>
+        <button onclick="checkAnswer(4)">Antwort überprüfen</button>
+        <p class="score" id="score4">Punkte: 0</p>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button onclick="prevCase()">⬅️ Zurück</button>
+      <button onclick="nextCase()">Weiter ➡️</button>
+    </div>
+  </main>
+
+  <script>
+    let current = 1;
+    const total = 4;
+    const correctAnswers = [
+      "pneumothorax",
+      "pleuraerguss",
+      "erguss",
+      "raumforderung"
+    ];
+
+    function showCase(n) {
+      for (let i = 1; i <= total; i++) {
+        document.getElementById(`case${i}`).classList.remove('active');
+      }
+      document.getElementById(`case${n}`).classList.add('active');
+    }
+
+    function prevCase() {
+      if (current > 1) {
+        current--;
+        showCase(current);
+      }
+    }
+
+    function nextCase() {
+      if (current < total) {
+        current++;
+        showCase(current);
+      }
+    }
+
+    function checkAnswer(n) {
+      const input = document.getElementById(`answer${n}`).value.toLowerCase().trim();
+      const correct = correctAnswers[n - 1];
+      const scoreElement = document.getElementById(`score${n}`);
+      if (input.includes(correct)) {
+        scoreElement.textContent = "Punkte: 1 ✅";
+      } else {
+        scoreElement.textContent = "Punkte: 0 ❌";
+      }
+    }
+  </script>
+</body>
+</html>
