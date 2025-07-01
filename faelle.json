@@ -1,7 +1,7 @@
 [
   {
-    "titel": "Pleuraerguss links",
-    "bild": "images/Pleuraerguss2JPG.JPG",
+    "titel": "Pleuraerguss",
+    "bild": "images/Pleuraerguss2.JPG",
     "beschreibung": "Seitliche Thoraxaufnahme zeigt eine homogene Verschattung mit horizontalem Flüssigkeitsspiegel.",
     "untersuchung": "Thorax-Röntgen seitlich (lateral)",
     "region": "linker Thorax / Pleura",
@@ -19,7 +19,7 @@
   },
   {
     "titel": "Pleuraerguss rechts",
-    "bild": "images/Pleuraerguss1.JPG",
+    "bild": "images/Pleuraerguss1JPG.JPG",
     "beschreibung": "PA-Röntgenbild mit homogener Verschattung der rechten Lunge, Mediastinalverlagerung nach links.",
     "untersuchung": "Thorax-Röntgen p.a.",
     "region": "rechter Thorax / Pleura",
