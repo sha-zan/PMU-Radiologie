@@ -4,119 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PMU Radiologie</title>
-  <link rel="icon" href="PMU_Logo_CMYK_positiv_blau.jpg" />
+  <link rel="icon" href="images/PMU_Logo_CMYK_positiv_blau.jpg" />
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to bottom right, #f0f4f8, #e0e7ef);
-      color: #333;
-    }
-    header {
-      display: flex;
-      align-items: center;
-      background-color: #004080;
-      color: white;
-      padding: 10px 20px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    }
-    header img {
-      height: 60px;
-      margin-right: 20px;
-    }
-    main {
-      max-width: 960px;
-      margin: 40px auto;
-      padding: 30px;
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
-    }
-    h1 {
-      text-align: center;
-      font-size: 2rem;
-      color: #005aa7;
-    }
-    .case {
-      display: none;
-      margin-bottom: 40px;
-      border-left: 4px solid #005aa7;
-      padding-left: 16px;
-    }
-    .case.active {
-      display: block;
-    }
-    .nav-buttons {
-      text-align: center;
-      margin-top: 20px;
-    }
-    #progressBar {
-      width: 80%;
-      background-color: #e0e0e0;
-      border-radius: 12px;
-      margin: 20px auto;
-      height: 26px;
-      overflow: hidden;
-    }
-    #progressBarFill {
-      height: 100%;
-      width: 0;
-      background-color: #007bd3;
-      color: white;
-      text-align: center;
-      font-weight: bold;
-      line-height: 26px;
-      transition: width 0.5s ease-in-out;
-    }
-    button {
-      padding: 10px 24px;
-      margin: 5px;
-      font-size: 16px;
-      border: none;
-      border-radius: 10px;
-      background: #005aa7;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background: #007bd3;
-    }
-    textarea {
-      width: 100%;
-      height: 80px;
-      margin-top: 12px;
-      padding: 12px;
-      font-size: 15px;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-      resize: vertical;
-    }
-    .score {
-      font-weight: bold;
-      margin-top: 12px;
-      color: #333;
-    }
-    .case img {
-      width: 100%;
-      max-height: 500px;
-      object-fit: contain;
-      border-radius: 12px;
-      margin-top: 15px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    #finalScore {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #004080;
-    }
+    body { font-family: 'Segoe UI', sans-serif; background: #e0e7ef; margin: 0; padding: 0; }
+    header { display: flex; align-items: center; background-color: #004080; color: white; padding: 10px 20px; }
+    header img { height: 60px; margin-right: 20px; }
+    main { max-width: 960px; margin: 40px auto; padding: 30px; background: white; border-radius: 16px; box-shadow: 0 0 30px rgba(0, 0, 0, 0.15); }
+    h1 { text-align: center; color: #005aa7; }
+    .case img { width: 100%; max-height: 500px; object-fit: contain; border-radius: 12px; margin-top: 15px; }
+    button { padding: 10px 24px; margin: 5px; font-size: 16px; background: #005aa7; color: white; border: none; border-radius: 10px; }
+    button:hover { background: #007bd3; }
+    textarea { width: 100%; height: 80px; margin-top: 12px; padding: 12px; font-size: 15px; border-radius: 10px; border: 1px solid #ccc; }
+    #progressBar { width: 80%; background-color: #e0e0e0; border-radius: 12px; margin: 20px auto; height: 26px; overflow: hidden; }
+    #progressBarFill { height: 100%; width: 0; background-color: #007bd3; color: white; text-align: center; font-weight: bold; line-height: 26px; }
   </style>
 </head>
 <body>
   <header>
-    <img src="PMU_Logo_CMYK_positiv_blau.jpg" alt="PMU Logo">
+    <img src="images/PMU_Logo_CMYK_positiv_blau.jpg" alt="PMU Logo">
     <h2>Radiologische Lernplattform</h2>
   </header>
   <main>
@@ -128,12 +33,63 @@
       <button onclick="showFinalScore()">📊 Gesamtscore</button>
     </div>
     <div id="finalScore"></div>
-    <div id="progressBar">
-      <div id="progressBarFill">0%</div>
-    </div>
+    <div id="progressBar"><div id="progressBarFill">0%</div></div>
   </main>
 <script>
-// Skript-Inhalt folgt...
+let cases = [];
+let currentCase = 0;
+
+fetch('faelle.json')
+  .then(response => response.json())
+  .then(data => {
+    cases = data;
+    renderCase();
+    updateProgressBar();
+  });
+
+function renderCase() {
+  const caseData = cases[currentCase];
+  const container = document.getElementById('cases');
+  container.innerHTML = `
+    <div class="case active">
+      <h2>${caseData.titel}</h2>
+      <img src="${caseData.bild}" alt="${caseData.titel}" />
+      <p><strong>Beschreibung:</strong> ${caseData.beschreibung}</p>
+      <p><strong>Untersuchung:</strong> ${caseData.untersuchung}</p>
+      <p><strong>Region:</strong> ${caseData.region}</p>
+      <p><strong>Diagnose:</strong> ${caseData.diagnose}</p>
+      <p><strong>Theoriefrage:</strong> ${caseData.theorie}</p>
+      <textarea placeholder="Deine Antwort hier eingeben..."></textarea>
+    </div>
+  `;
+}
+
+function nextCase() {
+  if (currentCase < cases.length - 1) {
+    currentCase++;
+    renderCase();
+    updateProgressBar();
+  }
+}
+
+function prevCase() {
+  if (currentCase > 0) {
+    currentCase--;
+    renderCase();
+    updateProgressBar();
+  }
+}
+
+function updateProgressBar() {
+  const percent = ((currentCase + 1) / cases.length) * 100;
+  const bar = document.getElementById("progressBarFill");
+  bar.style.width = percent + "%";
+  bar.innerText = Math.round(percent) + "%";
+}
+
+function showFinalScore() {
+  document.getElementById("finalScore").innerText = "Du hast " + (currentCase + 1) + " von " + cases.length + " Fällen bearbeitet.";
+}
 </script>
 </body>
 </html>

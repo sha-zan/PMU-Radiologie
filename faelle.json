@@ -1,0 +1,38 @@
+[
+  {
+    "titel": "Pleuraerguss links",
+    "bild": "images/Pleuraerguss1JPG.JPG",
+    "beschreibung": "Seitliche Thoraxaufnahme zeigt eine homogene Verschattung mit horizontalem Flüssigkeitsspiegel.",
+    "untersuchung": "Thorax-Röntgen seitlich (lateral)",
+    "region": "linker Thorax / Pleura",
+    "diagnose": "Pleuraerguss",
+    "theorie": "Wie unterscheidet man radiologisch einen Pleuraerguss von einer Atelektase?"
+  },
+  {
+    "titel": "Spannungspneumothorax rechts",
+    "bild": "images/Pneumothorax.JPG",
+    "beschreibung": "PA-Röntgenaufnahme in Exspiration mit rechtsseitigem Pneumothorax und Mediastinalverlagerung nach links.",
+    "untersuchung": "Thorax-Röntgen p.a. in Exspiration",
+    "region": "rechter Thorax / Pleuraraum",
+    "diagnose": "Spannungspneumothorax",
+    "theorie": "Warum ist der Spannungspneumothorax ein medizinischer Notfall?"
+  },
+  {
+    "titel": "Pleuraerguss rechts",
+    "bild": "images/Pleuraerguss2.JPG",
+    "beschreibung": "PA-Röntgenbild mit homogener Verschattung der rechten Lunge, Mediastinalverlagerung nach links.",
+    "untersuchung": "Thorax-Röntgen p.a.",
+    "region": "rechter Thorax / Pleura",
+    "diagnose": "Pleuraerguss",
+    "theorie": "Ab welcher Menge Flüssigkeit ist ein Pleuraerguss im Röntgen sichtbar?"
+  },
+  {
+    "titel": "Raumforderung in der Lunge",
+    "bild": "images/RaumforderungThorax-CT.JPG",
+    "beschreibung": "CT-Querschnitt mit solider Raumforderung im linken Unterlappen mit möglicher pleuraler Infiltration.",
+    "untersuchung": "Thorax-CT axial",
+    "region": "linker Unterlappen",
+    "diagnose": "maligne Raumforderung",
+    "theorie": "Welche CT-Merkmale sprechen für eine maligne Raumforderung?"
+  }
+]
