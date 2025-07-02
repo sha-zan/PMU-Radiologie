@@ -65,21 +65,21 @@
 
     <div class="question">
       <h3>Frage: Welche Untersuchungstechnik wurde angewendet?</h3>
-      <form id="technikForm">
-        <label><input type="radio" name="technik" value="CT"> CT</label><br>
-        <label><input type="radio" name="technik" value="MRT"> MRT</label><br>
-        <label><input type="radio" name="technik" value="Röntgen"> Thorax-Röntgen</label><br>
-        <button type="button" onclick="checkTechnik()">Antwort prüfen</button>
+      <form>
+        <label><input type="radio" name="technik"> CT</label><br>
+        <label><input type="radio" name="technik"> MRT</label><br>
+        <label><input type="radio" name="technik"> Thorax-Röntgen</label><br>
       </form>
+      <button type="button" onclick="checkTechnik()">Antwort prüfen</button>
       <div class="result" id="technikResult"></div>
 
       <h3>Frage: Welche Region wurde untersucht?</h3>
-      <form id="regionForm">
-        <label><input type="radio" name="region" value="Abdomen"> Abdomen</label><br>
-        <label><input type="radio" name="region" value="Thorax"> Thorax</label><br>
-        <label><input type="radio" name="region" value="Becken"> Becken</label><br>
-        <button type="button" onclick="checkRegion()">Antwort prüfen</button>
+      <form>
+        <label><input type="radio" name="region"> Abdomen</label><br>
+        <label><input type="radio" name="region"> Thorax</label><br>
+        <label><input type="radio" name="region"> Becken</label><br>
       </form>
+      <button type="button" onclick="checkRegion()">Antwort prüfen</button>
       <div class="result" id="regionResult"></div>
     </div>
 
@@ -114,13 +114,13 @@
       let selected;
       for (const radio of radios) {
         if (radio.checked) {
-          selected = radio.value;
+          selected = radio.nextSibling.textContent.trim();
           break;
         }
       }
       const result = document.getElementById('technikResult');
-      if (selected === 'Röntgen') {
-        result.textContent = '✅ Richtig! Thorax-Röntgen wurde durchgeführt.';
+      if (selected === 'Thorax-Röntgen') {
+        result.textContent = '✅ Richtig! Thorax-Röntgen wurde verwendet.';
         result.style.color = 'green';
       } else if (selected) {
         result.textContent = '❌ Leider falsch. Richtig wäre: Thorax-Röntgen.';
@@ -136,13 +136,13 @@
       let selected;
       for (const radio of radios) {
         if (radio.checked) {
-          selected = radio.value;
+          selected = radio.nextSibling.textContent.trim();
           break;
         }
       }
       const result = document.getElementById('regionResult');
       if (selected === 'Thorax') {
-        result.textContent = '✅ Richtig! Die untersuchte Region ist der Thorax.';
+        result.textContent = '✅ Richtig! Untersucht wurde der Thorax.';
         result.style.color = 'green';
       } else if (selected) {
         result.textContent = '❌ Leider falsch. Richtig wäre: Thorax.';
