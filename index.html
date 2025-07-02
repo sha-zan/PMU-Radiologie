@@ -65,18 +65,22 @@
 
     <div class="question">
       <h3>Frage: Welche Untersuchungstechnik wurde angewendet?</h3>
-      <form>
-        <label><input type="radio" name="technik"> CT</label><br>
-        <label><input type="radio" name="technik"> MRT</label><br>
-        <label><input type="radio" name="technik"> Thorax-Röntgen</label><br>
+      <form id="technikForm">
+        <label><input type="radio" name="technik" value="CT"> CT</label><br>
+        <label><input type="radio" name="technik" value="MRT"> MRT</label><br>
+        <label><input type="radio" name="technik" value="Röntgen"> Thorax-Röntgen</label><br>
+        <button type="button" onclick="checkTechnik()">Antwort prüfen</button>
       </form>
+      <div class="result" id="technikResult"></div>
 
       <h3>Frage: Welche Region wurde untersucht?</h3>
-      <form>
-        <label><input type="radio" name="region"> Abdomen</label><br>
-        <label><input type="radio" name="region"> Thorax</label><br>
-        <label><input type="radio" name="region"> Becken</label><br>
+      <form id="regionForm">
+        <label><input type="radio" name="region" value="Abdomen"> Abdomen</label><br>
+        <label><input type="radio" name="region" value="Thorax"> Thorax</label><br>
+        <label><input type="radio" name="region" value="Becken"> Becken</label><br>
+        <button type="button" onclick="checkRegion()">Antwort prüfen</button>
       </form>
+      <div class="result" id="regionResult"></div>
     </div>
 
     <div class="question">
@@ -105,8 +109,8 @@
   </div>
 
   <script>
-    function checkAnswer() {
-      const radios = document.getElementsByName('answer');
+    function checkTechnik() {
+      const radios = document.getElementsByName('technik');
       let selected;
       for (const radio of radios) {
         if (radio.checked) {
@@ -114,12 +118,34 @@
           break;
         }
       }
-      const result = document.getElementById('result');
-      if (selected === 'B') {
-        result.textContent = '✅ Richtig! Die CT ist am sensitivsten für Pneumothorax.';
+      const result = document.getElementById('technikResult');
+      if (selected === 'Röntgen') {
+        result.textContent = '✅ Richtig! Thorax-Röntgen wurde durchgeführt.';
         result.style.color = 'green';
       } else if (selected) {
-        result.textContent = '❌ Leider falsch. Richtig wäre: CT.';
+        result.textContent = '❌ Leider falsch. Richtig wäre: Thorax-Röntgen.';
+        result.style.color = 'red';
+      } else {
+        result.textContent = 'Bitte wähle eine Antwort aus.';
+        result.style.color = 'black';
+      }
+    }
+
+    function checkRegion() {
+      const radios = document.getElementsByName('region');
+      let selected;
+      for (const radio of radios) {
+        if (radio.checked) {
+          selected = radio.value;
+          break;
+        }
+      }
+      const result = document.getElementById('regionResult');
+      if (selected === 'Thorax') {
+        result.textContent = '✅ Richtig! Die untersuchte Region ist der Thorax.';
+        result.style.color = 'green';
+      } else if (selected) {
+        result.textContent = '❌ Leider falsch. Richtig wäre: Thorax.';
         result.style.color = 'red';
       } else {
         result.textContent = 'Bitte wähle eine Antwort aus.';
@@ -142,6 +168,28 @@
         result.style.color = 'green';
       } else if (selected) {
         result.textContent = '❌ Leider falsch. Richtig wäre: Pneumothorax.';
+        result.style.color = 'red';
+      } else {
+        result.textContent = 'Bitte wähle eine Antwort aus.';
+        result.style.color = 'black';
+      }
+    }
+
+    function checkAnswer() {
+      const radios = document.getElementsByName('answer');
+      let selected;
+      for (const radio of radios) {
+        if (radio.checked) {
+          selected = radio.value;
+          break;
+        }
+      }
+      const result = document.getElementById('result');
+      if (selected === 'B') {
+        result.textContent = '✅ Richtig! Die CT ist am sensitivsten für Pneumothorax.';
+        result.style.color = 'green';
+      } else if (selected) {
+        result.textContent = '❌ Leider falsch. Richtig wäre: CT.';
         result.style.color = 'red';
       } else {
         result.textContent = 'Bitte wähle eine Antwort aus.';
