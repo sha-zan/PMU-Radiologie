@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pneumothorax Fallanalyse – PMU</title>
+  <title>Fallanalyse – PMU</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -52,14 +52,29 @@
 </head>
 <body>
   <header>
-    <h1>Radiologische Fallanalyse – Pneumothorax</h1>
-    <img src="/images/PMU_Logo_CMYK_positiv_blau.jpg" alt="PMU Logo">
+    <h1>Radiologische Fallanalyse</h1>
+    <img src="images/PMU_Logo_CMYK_positiv_blau.jpg" alt="PMU Logo">
   </header>
+
   <div class="container">
     <h2>Bildgebung</h2>
-    <p><strong>Untersuchungstechnik:</strong> Thorax-Röntgen (p.a. Aufnahme in Exspiration)</p>
-    <p><strong>Untersuchungsregion:</strong> Thorax</p>
-    <img class="image" src="Pneumothorax.JPG" alt="Thorax-Röntgen">
+    <img class="image" src="images/Pneumothorax.JPG" alt="Thorax-Röntgen">
+
+    <div class="question">
+      <h3>Frage: Welche Untersuchungstechnik wurde angewendet?</h3>
+      <form>
+        <label><input type="radio" name="technik"> CT</label><br>
+        <label><input type="radio" name="technik"> MRT</label><br>
+        <label><input type="radio" name="technik"> Thorax-Röntgen</label><br>
+      </form>
+
+      <h3>Frage: Welche Region wurde untersucht?</h3>
+      <form>
+        <label><input type="radio" name="region"> Abdomen</label><br>
+        <label><input type="radio" name="region"> Thorax</label><br>
+        <label><input type="radio" name="region"> Becken</label><br>
+      </form>
+    </div>
 
     <h2>Diagnose</h2>
     <p>Linksseitiger Pneumothorax. Sichtbar ist eine scharfe Pleurakante ohne periphere Lungenzeichnung links. Der Patient hat zusätzlich einen Herzschrittmacher implantiert.</p>
@@ -102,3 +117,4 @@
   </script>
 </body>
 </html>
+
