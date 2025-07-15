@@ -1,0 +1,758 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fallanalyse – PMU</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #002855;
+      color: white;
+      padding: 1em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header img {
+      height: 80px;
+    }
+    .container {
+      padding: 2em;
+      max-width: 900px;
+      margin: auto;
+      background-color: white;
+    }
+    .question {
+      margin-top: 2em;
+    }
+    .question input[type="radio"] {
+      margin-right: 0.5em;
+    }
+    .result {
+      margin-top: 1em;
+      font-weight: bold;
+    }
+    .image {
+      width: 70%;
+      height: auto;
+      border: 1px solid #ccc;
+      margin-top: 1em;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .navigation {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+    .navigation button {
+      font-size: 1.5em;
+      padding: 0.5em 1em;
+      margin: 0 1em;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Radiologische Fallanalyse</h1>
+    <img src="images/PMU_Logo_CMYK_positiv_blau.jpg" alt="PMU Logo">
+  </header>
+  <div class="container">
+
+    <div class="case" id="case7" style="display: none;">
+      <img class="image" src="images/Mesotheliom1.jpg" alt="Fallbild">
+
+      <h3>Anamnese:</h3>
+      <p>Klinische Fragestellung zur weiteren Abklärung eines unklaren Thoraxbefunds.</p>
+
+      <div class="question">
+        <h3>Frage: Welche Untersuchungstechnik wurde angewendet?</h3>
+        <form>
+          <label><input type="radio" name="technik_7"> CT</label><br>
+          <label><input type="radio" name="technik_7"> MRT</label><br>
+          <label><input type="radio" name="technik_7"> Thorax-Röntgen</label><br>
+        </form>
+        <button type="button" onclick="checkTechnik('7', 'CT')">Antwort prüfen</button>
+        <div class="result" id="technikResult_7"></div>
+
+        <h3>Frage: Welche Region wurde untersucht?</h3>
+        <form>
+          <label><input type="radio" name="region_7"> Abdomen</label><br>
+          <label><input type="radio" name="region_7"> Thorax</label><br>
+          <label><input type="radio" name="region_7"> Becken</label><br>
+        </form>
+        <button type="button" onclick="checkRegion('7', 'Thorax')">Antwort prüfen</button>
+        <div class="result" id="regionResult_7"></div>
+      </div>
+
+      <div class="question">
+        <h3>Diagnose:</h3>
+        <p>Was ist die wahrscheinlichste Diagnose?</p>
+        <form id="diagnoseForm_7">
+          <label><input type="radio" name="diagnose_7" value="A"> Raumforderung</label><br>
+          <label><input type="radio" name="diagnose_7" value="B"> Mesotheliom</label><br>
+          <label><input type="radio" name="diagnose_7" value="C"> Pneumonie</label><br>
+          <button type="button" onclick="checkDiagnosis('7', 'B', 'Mesotheliom')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="diagnoseResult_7"></div>
+      </div>
+
+      <div class="question">
+        <h3>Frage zur Theorie:</h3>
+        <p>Welche Bildgebung ist am sensitivsten zur Diagnose?</p>
+        <form id="quizForm_7">
+          <label><input type="radio" name="answer_7" value="A"> Röntgen</label><br>
+          <label><input type="radio" name="answer_7" value="B"> CT</label><br>
+          <label><input type="radio" name="answer_7" value="C"> Sonographie</label><br>
+          <button type="button" onclick="checkTheory('7', 'B', 'CT')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="result_7"></div>
+      </div>
+    </div>
+    
+
+    <div class="case" id="case8" style="display: none;">
+      <img class="image" src="images/Mesotheliom2.jpg" alt="Fallbild">
+
+      <h3>Anamnese:</h3>
+      <p>Klinische Fragestellung zur weiteren Abklärung eines unklaren Thoraxbefunds.</p>
+
+      <div class="question">
+        <h3>Frage: Welche Untersuchungstechnik wurde angewendet?</h3>
+        <form>
+          <label><input type="radio" name="technik_8"> CT</label><br>
+          <label><input type="radio" name="technik_8"> MRT</label><br>
+          <label><input type="radio" name="technik_8"> Thorax-Röntgen</label><br>
+        </form>
+        <button type="button" onclick="checkTechnik('8', 'CT')">Antwort prüfen</button>
+        <div class="result" id="technikResult_8"></div>
+
+        <h3>Frage: Welche Region wurde untersucht?</h3>
+        <form>
+          <label><input type="radio" name="region_8"> Abdomen</label><br>
+          <label><input type="radio" name="region_8"> Thorax</label><br>
+          <label><input type="radio" name="region_8"> Becken</label><br>
+        </form>
+        <button type="button" onclick="checkRegion('8', 'Thorax')">Antwort prüfen</button>
+        <div class="result" id="regionResult_8"></div>
+      </div>
+
+      <div class="question">
+        <h3>Diagnose:</h3>
+        <p>Was ist die wahrscheinlichste Diagnose?</p>
+        <form id="diagnoseForm_8">
+          <label><input type="radio" name="diagnose_8" value="A"> Raumforderung</label><br>
+          <label><input type="radio" name="diagnose_8" value="B"> Mesotheliom</label><br>
+          <label><input type="radio" name="diagnose_8" value="C"> Pneumonie</label><br>
+          <button type="button" onclick="checkDiagnosis('8', 'B', 'Mesotheliom')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="diagnoseResult_8"></div>
+      </div>
+
+      <div class="question">
+        <h3>Frage zur Theorie:</h3>
+        <p>Welche Bildgebung ist am sensitivsten zur Diagnose?</p>
+        <form id="quizForm_8">
+          <label><input type="radio" name="answer_8" value="A"> Röntgen</label><br>
+          <label><input type="radio" name="answer_8" value="B"> CT</label><br>
+          <label><input type="radio" name="answer_8" value="C"> Sonographie</label><br>
+          <button type="button" onclick="checkTheory('8', 'B', 'CT')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="result_8"></div>
+      </div>
+    </div>
+    
+
+    <div class="case" id="case9" style="display: none;">
+      <img class="image" src="images/Pneumediastinum.jpg" alt="Fallbild">
+
+      <h3>Anamnese:</h3>
+      <p>Klinische Fragestellung zur weiteren Abklärung eines unklaren Thoraxbefunds.</p>
+
+      <div class="question">
+        <h3>Frage: Welche Untersuchungstechnik wurde angewendet?</h3>
+        <form>
+          <label><input type="radio" name="technik_9"> CT</label><br>
+          <label><input type="radio" name="technik_9"> MRT</label><br>
+          <label><input type="radio" name="technik_9"> Thorax-Röntgen</label><br>
+        </form>
+        <button type="button" onclick="checkTechnik('9', 'CT')">Antwort prüfen</button>
+        <div class="result" id="technikResult_9"></div>
+
+        <h3>Frage: Welche Region wurde untersucht?</h3>
+        <form>
+          <label><input type="radio" name="region_9"> Abdomen</label><br>
+          <label><input type="radio" name="region_9"> Thorax</label><br>
+          <label><input type="radio" name="region_9"> Becken</label><br>
+        </form>
+        <button type="button" onclick="checkRegion('9', 'Thorax')">Antwort prüfen</button>
+        <div class="result" id="regionResult_9"></div>
+      </div>
+
+      <div class="question">
+        <h3>Diagnose:</h3>
+        <p>Was ist die wahrscheinlichste Diagnose?</p>
+        <form id="diagnoseForm_9">
+          <label><input type="radio" name="diagnose_9" value="A"> Raumforderung</label><br>
+          <label><input type="radio" name="diagnose_9" value="B"> Pneumomediastinum</label><br>
+          <label><input type="radio" name="diagnose_9" value="C"> Pneumonie</label><br>
+          <button type="button" onclick="checkDiagnosis('9', 'B', 'Pneumomediastinum')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="diagnoseResult_9"></div>
+      </div>
+
+      <div class="question">
+        <h3>Frage zur Theorie:</h3>
+        <p>Welche Bildgebung ist am sensitivsten zur Diagnose?</p>
+        <form id="quizForm_9">
+          <label><input type="radio" name="answer_9" value="A"> Röntgen</label><br>
+          <label><input type="radio" name="answer_9" value="B"> CT</label><br>
+          <label><input type="radio" name="answer_9" value="C"> Sonographie</label><br>
+          <button type="button" onclick="checkTheory('9', 'B', 'CT')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="result_9"></div>
+      </div>
+    </div>
+    
+
+    <div class="case" id="case10" style="display: none;">
+      <img class="image" src="images/Hautemphysem.jpeg" alt="Fallbild">
+
+      <h3>Anamnese:</h3>
+      <p>Klinische Fragestellung zur weiteren Abklärung eines unklaren Thoraxbefunds.</p>
+
+      <div class="question">
+        <h3>Frage: Welche Untersuchungstechnik wurde angewendet?</h3>
+        <form>
+          <label><input type="radio" name="technik_10"> CT</label><br>
+          <label><input type="radio" name="technik_10"> MRT</label><br>
+          <label><input type="radio" name="technik_10"> Thorax-Röntgen</label><br>
+        </form>
+        <button type="button" onclick="checkTechnik('10', 'CT')">Antwort prüfen</button>
+        <div class="result" id="technikResult_10"></div>
+
+        <h3>Frage: Welche Region wurde untersucht?</h3>
+        <form>
+          <label><input type="radio" name="region_10"> Abdomen</label><br>
+          <label><input type="radio" name="region_10"> Thorax</label><br>
+          <label><input type="radio" name="region_10"> Becken</label><br>
+        </form>
+        <button type="button" onclick="checkRegion('10', 'Thorax')">Antwort prüfen</button>
+        <div class="result" id="regionResult_10"></div>
+      </div>
+
+      <div class="question">
+        <h3>Diagnose:</h3>
+        <p>Was ist die wahrscheinlichste Diagnose?</p>
+        <form id="diagnoseForm_10">
+          <label><input type="radio" name="diagnose_10" value="A"> Raumforderung</label><br>
+          <label><input type="radio" name="diagnose_10" value="B"> Hautemphysem</label><br>
+          <label><input type="radio" name="diagnose_10" value="C"> Pneumonie</label><br>
+          <button type="button" onclick="checkDiagnosis('10', 'B', 'Hautemphysem')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="diagnoseResult_10"></div>
+      </div>
+
+      <div class="question">
+        <h3>Frage zur Theorie:</h3>
+        <p>Welche Bildgebung ist am sensitivsten zur Diagnose?</p>
+        <form id="quizForm_10">
+          <label><input type="radio" name="answer_10" value="A"> Röntgen</label><br>
+          <label><input type="radio" name="answer_10" value="B"> CT</label><br>
+          <label><input type="radio" name="answer_10" value="C"> Sonographie</label><br>
+          <button type="button" onclick="checkTheory('10', 'B', 'CT')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="result_10"></div>
+      </div>
+    </div>
+    
+
+    <div class="case" id="case11" style="display: none;">
+      <img class="image" src="images/Pancoasttumor-1.png" alt="Fallbild">
+
+      <h3>Anamnese:</h3>
+      <p>Klinische Fragestellung zur weiteren Abklärung eines unklaren Thoraxbefunds.</p>
+
+      <div class="question">
+        <h3>Frage: Welche Untersuchungstechnik wurde angewendet?</h3>
+        <form>
+          <label><input type="radio" name="technik_11"> CT</label><br>
+          <label><input type="radio" name="technik_11"> MRT</label><br>
+          <label><input type="radio" name="technik_11"> Thorax-Röntgen</label><br>
+        </form>
+        <button type="button" onclick="checkTechnik('11', 'CT')">Antwort prüfen</button>
+        <div class="result" id="technikResult_11"></div>
+
+        <h3>Frage: Welche Region wurde untersucht?</h3>
+        <form>
+          <label><input type="radio" name="region_11"> Abdomen</label><br>
+          <label><input type="radio" name="region_11"> Thorax</label><br>
+          <label><input type="radio" name="region_11"> Becken</label><br>
+        </form>
+        <button type="button" onclick="checkRegion('11', 'Thorax')">Antwort prüfen</button>
+        <div class="result" id="regionResult_11"></div>
+      </div>
+
+      <div class="question">
+        <h3>Diagnose:</h3>
+        <p>Was ist die wahrscheinlichste Diagnose?</p>
+        <form id="diagnoseForm_11">
+          <label><input type="radio" name="diagnose_11" value="A"> Raumforderung</label><br>
+          <label><input type="radio" name="diagnose_11" value="B"> Pancoast-Tumor</label><br>
+          <label><input type="radio" name="diagnose_11" value="C"> Pneumonie</label><br>
+          <button type="button" onclick="checkDiagnosis('11', 'B', 'Pancoast-Tumor')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="diagnoseResult_11"></div>
+      </div>
+
+      <div class="question">
+        <h3>Frage zur Theorie:</h3>
+        <p>Welche Bildgebung ist am sensitivsten zur Diagnose?</p>
+        <form id="quizForm_11">
+          <label><input type="radio" name="answer_11" value="A"> Röntgen</label><br>
+          <label><input type="radio" name="answer_11" value="B"> CT</label><br>
+          <label><input type="radio" name="answer_11" value="C"> Sonographie</label><br>
+          <button type="button" onclick="checkTheory('11', 'B', 'CT')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="result_11"></div>
+      </div>
+    </div>
+    
+
+    <div class="case" id="case12" style="display: none;">
+      <img class="image" src="images/Pancoasttumor-2.jpg" alt="Fallbild">
+
+      <h3>Anamnese:</h3>
+      <p>Klinische Fragestellung zur weiteren Abklärung eines unklaren Thoraxbefunds.</p>
+
+      <div class="question">
+        <h3>Frage: Welche Untersuchungstechnik wurde angewendet?</h3>
+        <form>
+          <label><input type="radio" name="technik_12"> CT</label><br>
+          <label><input type="radio" name="technik_12"> MRT</label><br>
+          <label><input type="radio" name="technik_12"> Thorax-Röntgen</label><br>
+        </form>
+        <button type="button" onclick="checkTechnik('12', 'CT')">Antwort prüfen</button>
+        <div class="result" id="technikResult_12"></div>
+
+        <h3>Frage: Welche Region wurde untersucht?</h3>
+        <form>
+          <label><input type="radio" name="region_12"> Abdomen</label><br>
+          <label><input type="radio" name="region_12"> Thorax</label><br>
+          <label><input type="radio" name="region_12"> Becken</label><br>
+        </form>
+        <button type="button" onclick="checkRegion('12', 'Thorax')">Antwort prüfen</button>
+        <div class="result" id="regionResult_12"></div>
+      </div>
+
+      <div class="question">
+        <h3>Diagnose:</h3>
+        <p>Was ist die wahrscheinlichste Diagnose?</p>
+        <form id="diagnoseForm_12">
+          <label><input type="radio" name="diagnose_12" value="A"> Raumforderung</label><br>
+          <label><input type="radio" name="diagnose_12" value="B"> Pancoast-Tumor</label><br>
+          <label><input type="radio" name="diagnose_12" value="C"> Pneumonie</label><br>
+          <button type="button" onclick="checkDiagnosis('12', 'B', 'Pancoast-Tumor')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="diagnoseResult_12"></div>
+      </div>
+
+      <div class="question">
+        <h3>Frage zur Theorie:</h3>
+        <p>Welche Bildgebung ist am sensitivsten zur Diagnose?</p>
+        <form id="quizForm_12">
+          <label><input type="radio" name="answer_12" value="A"> Röntgen</label><br>
+          <label><input type="radio" name="answer_12" value="B"> CT</label><br>
+          <label><input type="radio" name="answer_12" value="C"> Sonographie</label><br>
+          <button type="button" onclick="checkTheory('12', 'B', 'CT')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="result_12"></div>
+      </div>
+    </div>
+    
+
+    <div class="case" id="case13" style="display: none;">
+      <img class="image" src="images/Lungenemphysem.jpg" alt="Fallbild">
+
+      <h3>Anamnese:</h3>
+      <p>Klinische Fragestellung zur weiteren Abklärung eines unklaren Thoraxbefunds.</p>
+
+      <div class="question">
+        <h3>Frage: Welche Untersuchungstechnik wurde angewendet?</h3>
+        <form>
+          <label><input type="radio" name="technik_13"> CT</label><br>
+          <label><input type="radio" name="technik_13"> MRT</label><br>
+          <label><input type="radio" name="technik_13"> Thorax-Röntgen</label><br>
+        </form>
+        <button type="button" onclick="checkTechnik('13', 'CT')">Antwort prüfen</button>
+        <div class="result" id="technikResult_13"></div>
+
+        <h3>Frage: Welche Region wurde untersucht?</h3>
+        <form>
+          <label><input type="radio" name="region_13"> Abdomen</label><br>
+          <label><input type="radio" name="region_13"> Thorax</label><br>
+          <label><input type="radio" name="region_13"> Becken</label><br>
+        </form>
+        <button type="button" onclick="checkRegion('13', 'Thorax')">Antwort prüfen</button>
+        <div class="result" id="regionResult_13"></div>
+      </div>
+
+      <div class="question">
+        <h3>Diagnose:</h3>
+        <p>Was ist die wahrscheinlichste Diagnose?</p>
+        <form id="diagnoseForm_13">
+          <label><input type="radio" name="diagnose_13" value="A"> Raumforderung</label><br>
+          <label><input type="radio" name="diagnose_13" value="B"> Lungenemphysem</label><br>
+          <label><input type="radio" name="diagnose_13" value="C"> Pneumonie</label><br>
+          <button type="button" onclick="checkDiagnosis('13', 'B', 'Lungenemphysem')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="diagnoseResult_13"></div>
+      </div>
+
+      <div class="question">
+        <h3>Frage zur Theorie:</h3>
+        <p>Welche Bildgebung ist am sensitivsten zur Diagnose?</p>
+        <form id="quizForm_13">
+          <label><input type="radio" name="answer_13" value="A"> Röntgen</label><br>
+          <label><input type="radio" name="answer_13" value="B"> CT</label><br>
+          <label><input type="radio" name="answer_13" value="C"> Sonographie</label><br>
+          <button type="button" onclick="checkTheory('13', 'B', 'CT')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="result_13"></div>
+      </div>
+    </div>
+    
+
+    <div class="case" id="case14" style="display: none;">
+      <img class="image" src="images/Bronchieektasien.png" alt="Fallbild">
+
+      <h3>Anamnese:</h3>
+      <p>Klinische Fragestellung zur weiteren Abklärung eines unklaren Thoraxbefunds.</p>
+
+      <div class="question">
+        <h3>Frage: Welche Untersuchungstechnik wurde angewendet?</h3>
+        <form>
+          <label><input type="radio" name="technik_14"> CT</label><br>
+          <label><input type="radio" name="technik_14"> MRT</label><br>
+          <label><input type="radio" name="technik_14"> Thorax-Röntgen</label><br>
+        </form>
+        <button type="button" onclick="checkTechnik('14', 'CT')">Antwort prüfen</button>
+        <div class="result" id="technikResult_14"></div>
+
+        <h3>Frage: Welche Region wurde untersucht?</h3>
+        <form>
+          <label><input type="radio" name="region_14"> Abdomen</label><br>
+          <label><input type="radio" name="region_14"> Thorax</label><br>
+          <label><input type="radio" name="region_14"> Becken</label><br>
+        </form>
+        <button type="button" onclick="checkRegion('14', 'Thorax')">Antwort prüfen</button>
+        <div class="result" id="regionResult_14"></div>
+      </div>
+
+      <div class="question">
+        <h3>Diagnose:</h3>
+        <p>Was ist die wahrscheinlichste Diagnose?</p>
+        <form id="diagnoseForm_14">
+          <label><input type="radio" name="diagnose_14" value="A"> Raumforderung</label><br>
+          <label><input type="radio" name="diagnose_14" value="B"> Bronchiektasen</label><br>
+          <label><input type="radio" name="diagnose_14" value="C"> Pneumonie</label><br>
+          <button type="button" onclick="checkDiagnosis('14', 'B', 'Bronchiektasen')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="diagnoseResult_14"></div>
+      </div>
+
+      <div class="question">
+        <h3>Frage zur Theorie:</h3>
+        <p>Welche Bildgebung ist am sensitivsten zur Diagnose?</p>
+        <form id="quizForm_14">
+          <label><input type="radio" name="answer_14" value="A"> Röntgen</label><br>
+          <label><input type="radio" name="answer_14" value="B"> CT</label><br>
+          <label><input type="radio" name="answer_14" value="C"> Sonographie</label><br>
+          <button type="button" onclick="checkTheory('14', 'B', 'CT')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="result_14"></div>
+      </div>
+    </div>
+    
+
+    <div class="case" id="case15" style="display: none;">
+      <img class="image" src="images/Ground-Glass-Opacity.jpg" alt="Fallbild">
+
+      <h3>Anamnese:</h3>
+      <p>Klinische Fragestellung zur weiteren Abklärung eines unklaren Thoraxbefunds.</p>
+
+      <div class="question">
+        <h3>Frage: Welche Untersuchungstechnik wurde angewendet?</h3>
+        <form>
+          <label><input type="radio" name="technik_15"> CT</label><br>
+          <label><input type="radio" name="technik_15"> MRT</label><br>
+          <label><input type="radio" name="technik_15"> Thorax-Röntgen</label><br>
+        </form>
+        <button type="button" onclick="checkTechnik('15', 'CT')">Antwort prüfen</button>
+        <div class="result" id="technikResult_15"></div>
+
+        <h3>Frage: Welche Region wurde untersucht?</h3>
+        <form>
+          <label><input type="radio" name="region_15"> Abdomen</label><br>
+          <label><input type="radio" name="region_15"> Thorax</label><br>
+          <label><input type="radio" name="region_15"> Becken</label><br>
+        </form>
+        <button type="button" onclick="checkRegion('15', 'Thorax')">Antwort prüfen</button>
+        <div class="result" id="regionResult_15"></div>
+      </div>
+
+      <div class="question">
+        <h3>Diagnose:</h3>
+        <p>Was ist die wahrscheinlichste Diagnose?</p>
+        <form id="diagnoseForm_15">
+          <label><input type="radio" name="diagnose_15" value="A"> Raumforderung</label><br>
+          <label><input type="radio" name="diagnose_15" value="B"> Ground-Glass-Opacity</label><br>
+          <label><input type="radio" name="diagnose_15" value="C"> Pneumonie</label><br>
+          <button type="button" onclick="checkDiagnosis('15', 'B', 'Ground-Glass-Opacity')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="diagnoseResult_15"></div>
+      </div>
+
+      <div class="question">
+        <h3>Frage zur Theorie:</h3>
+        <p>Welche Bildgebung ist am sensitivsten zur Diagnose?</p>
+        <form id="quizForm_15">
+          <label><input type="radio" name="answer_15" value="A"> Röntgen</label><br>
+          <label><input type="radio" name="answer_15" value="B"> CT</label><br>
+          <label><input type="radio" name="answer_15" value="C"> Sonographie</label><br>
+          <button type="button" onclick="checkTheory('15', 'B', 'CT')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="result_15"></div>
+      </div>
+    </div>
+    
+    <div class="case" id="case16" style="display: none;">
+      <img class="image" src="images/Sarkoidose.png" alt="Fallbild">
+
+      <h3>Anamnese:</h3>
+      <p>Klinische Fragestellung zur weiteren Abklärung eines unklaren Thoraxbefunds.</p>
+
+      <div class="question">
+        <h3>Frage: Welche Untersuchungstechnik wurde angewendet?</h3>
+        <form>
+          <label><input type="radio" name="technik_16"> CT</label><br>
+          <label><input type="radio" name="technik_16"> MRT</label><br>
+          <label><input type="radio" name="technik_16"> Thorax-Röntgen</label><br>
+        </form>
+        <button type="button" onclick="checkTechnik('16', 'CT')">Antwort prüfen</button>
+        <div class="result" id="technikResult_16"></div>
+
+        <h3>Frage: Welche Region wurde untersucht?</h3>
+        <form>
+          <label><input type="radio" name="region_16"> Abdomen</label><br>
+          <label><input type="radio" name="region_16"> Thorax</label><br>
+          <label><input type="radio" name="region_16"> Becken</label><br>
+        </form>
+        <button type="button" onclick="checkRegion('16', 'Thorax')">Antwort prüfen</button>
+        <div class="result" id="regionResult_16"></div>
+      </div>
+
+      <div class="question">
+        <h3>Diagnose:</h3>
+        <p>Was ist die wahrscheinlichste Diagnose?</p>
+        <form id="diagnoseForm_16">
+          <label><input type="radio" name="diagnose_16" value="A"> Raumforderung</label><br>
+          <label><input type="radio" name="diagnose_16" value="B"> Sarkoidose</label><br>
+          <label><input type="radio" name="diagnose_16" value="C"> Pneumonie</label><br>
+          <button type="button" onclick="checkDiagnosis('16', 'B', 'Sarkoidose')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="diagnoseResult_16"></div>
+      </div>
+
+      <div class="question">
+        <h3>Frage zur Theorie:</h3>
+        <p>Welche Bildgebung ist am sensitivsten zur Diagnose?</p>
+        <form id="quizForm_16">
+          <label><input type="radio" name="answer_16" value="A"> Röntgen</label><br>
+          <label><input type="radio" name="answer_16" value="B"> CT</label><br>
+          <label><input type="radio" name="answer_16" value="C"> Sonographie</label><br>
+          <button type="button" onclick="checkTheory('16', 'B', 'CT')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="result_16"></div>
+      </div>
+    </div>
+    
+
+    <div class="case" id="case17" style="display: none;">
+      <img class="image" src="images/Honeycombing.png" alt="Fallbild">
+
+      <h3>Anamnese:</h3>
+      <p>Klinische Fragestellung zur weiteren Abklärung eines unklaren Thoraxbefunds.</p>
+
+      <div class="question">
+        <h3>Frage: Welche Untersuchungstechnik wurde angewendet?</h3>
+        <form>
+          <label><input type="radio" name="technik_17"> CT</label><br>
+          <label><input type="radio" name="technik_17"> MRT</label><br>
+          <label><input type="radio" name="technik_17"> Thorax-Röntgen</label><br>
+        </form>
+        <button type="button" onclick="checkTechnik('17', 'CT')">Antwort prüfen</button>
+        <div class="result" id="technikResult_17"></div>
+
+        <h3>Frage: Welche Region wurde untersucht?</h3>
+        <form>
+          <label><input type="radio" name="region_17"> Abdomen</label><br>
+          <label><input type="radio" name="region_17"> Thorax</label><br>
+          <label><input type="radio" name="region_17"> Becken</label><br>
+        </form>
+        <button type="button" onclick="checkRegion('17', 'Thorax')">Antwort prüfen</button>
+        <div class="result" id="regionResult_17"></div>
+      </div>
+
+      <div class="question">
+        <h3>Diagnose:</h3>
+        <p>Was ist die wahrscheinlichste Diagnose?</p>
+        <form id="diagnoseForm_17">
+          <label><input type="radio" name="diagnose_17" value="A"> Raumforderung</label><br>
+          <label><input type="radio" name="diagnose_17" value="B"> Lungenfibrose mit Honeycombing</label><br>
+          <label><input type="radio" name="diagnose_17" value="C"> Pneumonie</label><br>
+          <button type="button" onclick="checkDiagnosis('17', 'B', 'Lungenfibrose mit Honeycombing')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="diagnoseResult_17"></div>
+      </div>
+
+      <div class="question">
+        <h3>Frage zur Theorie:</h3>
+        <p>Welche Bildgebung ist am sensitivsten zur Diagnose?</p>
+        <form id="quizForm_17">
+          <label><input type="radio" name="answer_17" value="A"> Röntgen</label><br>
+          <label><input type="radio" name="answer_17" value="B"> CT</label><br>
+          <label><input type="radio" name="answer_17" value="C"> Sonographie</label><br>
+          <button type="button" onclick="checkTheory('17', 'B', 'CT')">Antwort prüfen</button>
+        </form>
+        <div class="result" id="result_17"></div>
+      </div>
+    </div>
+    
+  <div class="navigation" style="text-align:center; margin-top:2em;">
+    <button onclick="prevCase()">⬅️</button>
+    <span id="caseCounter">Fall 1</span>
+    <button onclick="nextCase()">➡️</button>
+  </div>
+</div>
+
+<script>
+  let currentCase = 0;
+  const totalCases = document.querySelectorAll('.case').length;
+
+  function showCase(index) {
+    const cases = document.querySelectorAll('.case');
+    cases.forEach((el, i) => el.style.display = i === index ? 'block' : 'none');
+    document.getElementById("caseCounter").textContent = `Fall ${index + 1} / ${cases.length}`;
+  }
+
+  function nextCase() {
+    currentCase = (currentCase + 1) % totalCases;
+    showCase(currentCase);
+  }
+
+  function prevCase() {
+    currentCase = (currentCase - 1 + totalCases) % totalCases;
+    showCase(currentCase);
+  }
+
+  function checkTechnik(id, correct) {
+    const radios = document.getElementsByName('technik_' + id);
+    let selected;
+    for (const radio of radios) {
+      if (radio.checked) {
+        selected = radio.nextSibling.textContent.trim();
+        break;
+      }
+    }
+    const result = document.getElementById('technikResult_' + id);
+    if (selected === correct) {
+      result.textContent = '✅ Richtig!';
+      result.style.color = 'green';
+    } else if (selected) {
+      result.textContent = `❌ Leider falsch. Richtig wäre: ${correct}.`;
+      result.style.color = 'red';
+    } else {
+      result.textContent = 'Bitte wähle eine Antwort aus.';
+      result.style.color = 'black';
+    }
+  }
+
+  function checkRegion(id, correct) {
+    const radios = document.getElementsByName('region_' + id);
+    let selected;
+    for (const radio of radios) {
+      if (radio.checked) {
+        selected = radio.nextSibling.textContent.trim();
+        break;
+      }
+    }
+    const result = document.getElementById('regionResult_' + id);
+    if (selected === correct) {
+      result.textContent = '✅ Richtig!';
+      result.style.color = 'green';
+    } else if (selected) {
+      result.textContent = `❌ Leider falsch. Richtig wäre: ${correct}.`;
+      result.style.color = 'red';
+    } else {
+      result.textContent = 'Bitte wähle eine Antwort aus.';
+      result.style.color = 'black';
+    }
+  }
+
+  function checkDiagnosis(id, correctValue, correctLabel) {
+    const radios = document.getElementsByName('diagnose_' + id);
+    let selected;
+    for (const radio of radios) {
+      if (radio.checked) {
+        selected = radio.value;
+        break;
+      }
+    }
+    const result = document.getElementById('diagnoseResult_' + id);
+    if (selected === correctValue) {
+      result.textContent = `✅ Richtig! Es handelt sich um ${correctLabel}.`;
+      result.style.color = 'green';
+    } else if (selected) {
+      result.textContent = `❌ Leider falsch. Richtig wäre: ${correctLabel}.`;
+      result.style.color = 'red';
+    } else {
+      result.textContent = 'Bitte wähle eine Antwort aus.';
+      result.style.color = 'black';
+    }
+  }
+
+  function checkTheory(id, correctValue, correctLabel) {
+    const radios = document.getElementsByName('answer_' + id);
+    let selected;
+    for (const radio of radios) {
+      if (radio.checked) {
+        selected = radio.value;
+        break;
+      }
+    }
+    const result = document.getElementById('result_' + id);
+    if (selected === correctValue) {
+      result.textContent = `✅ Richtig! ${correctLabel} ist am sensitivsten.`;
+      result.style.color = 'green';
+    } else if (selected) {
+      result.textContent = `❌ Leider falsch. Richtig wäre: ${correctLabel}.`;
+      result.style.color = 'red';
+    } else {
+      result.textContent = 'Bitte wähle eine Antwort aus.';
+      result.style.color = 'black';
+    }
+  }
+
+  showCase(0);
+</script>
+</body>
+</html>
